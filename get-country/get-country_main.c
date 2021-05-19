@@ -8,6 +8,7 @@
 #include "util.h"
 #include <string.h>
 #include <assert.h>
+#include <stdio.h>
 
 
 #define UNUSED(x)   (void)(x)
@@ -22,7 +23,7 @@ const char* getCountry(int cc);
 int main(int argc, char* argv[]) {
     for (int i = 0; i <= 240; ++i) {
         const char* c = getCountry(i);
-        UNUSED(c);
+		printf("%s\n",c);
     }
     
     // no need to verify
