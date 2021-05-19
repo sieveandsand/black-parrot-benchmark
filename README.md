@@ -16,7 +16,7 @@ get-country checks branch prediction performance. It comes from the question of 
 
 
 Checkout this article:
-https://blog.cloudflare.com/branch-predictor/articlearticle
+https://blog.cloudflare.com/branch-predictor/
 
 
 
