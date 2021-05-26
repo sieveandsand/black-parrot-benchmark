@@ -1,8 +1,5 @@
-import os
+import sys
 from typing import List, Tuple
-
-
-FILE = './black-parrot/sdk/riscv-tests/benchmarks/multiply.riscv.dump'
 
 COND_BRANCH_INSTRS = {'beq', 'bne', 'blt', 'bge','blte', 'bgeu'}
 UNCOND_BRANCH_INSTRS = {'j', 'jal', 'jalr'}
@@ -33,11 +30,19 @@ def get_counts(asm_instrs: List[List[str]]) -> Tuple[int, int]:
 
 
 if __name__=="__main__":
-    asm_instrs = get_asm_from_dump(FILE)
-    cond_count, uncond_count = get_counts(asm_instrs)
-    total_count = cond_count + uncond_count
-    cond_pct = cond_count / total_count
-    uncond_pct = uncond_count / total_count
-    print('total: {} \t conditional: {} ({}) \t unconditional: {} ({})'.format(
-        total_count, cond_count, cond_pct, uncond_count, uncond_pct))
+    if len(sys.argv) < 2:
+        print('must enter filenames in command line')
+        sys.exit()
+    f_list = sys.argv[1:]
+
+    for filename in f_list:
+        asm_instrs = get_asm_from_dump(filename)
+        cond_count, uncond_count = get_counts(asm_instrs)
+
+        total_count = cond_count + uncond_count
+        cond_pct = cond_count / total_count
+        uncond_pct = uncond_count / total_count
+
+        print('{}: total: {} \t conditional: {} ({}) \t unconditional: {} ({})'.format(
+            filename, total_count, cond_count, cond_pct, uncond_count, uncond_pct))
 
